@@ -14,7 +14,8 @@ namespace SpotifyConsole
         private string name;
         public string Name { get { return name; } set { name = value; } }
 
-        private List<Nummer> Nummers { get; set; }
+        private List<Nummer> nummers = new List<Nummer>();
+        public List<Nummer> Nummers { get { return nummers; } }
 
         public PlayList(int Id, string Name) { 
 
@@ -22,9 +23,15 @@ namespace SpotifyConsole
             this.Name = Name;
         }
 
-        public void AddSongs(Nummer piet)
+        //public void AddSongs(Nummer piet)
+        //{
+        //this.Nummers = new List<Nummer>();
+        //this.Nummers.Add(piet);
+        //}
+
+        public void AddSongs(params Nummer[] songs)
         {
-            this.Nummers.Add(piet);
+            nummers.AddRange(songs);
         }
     }
 }
