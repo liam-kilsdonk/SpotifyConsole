@@ -33,7 +33,7 @@ int userInput = Convert.ToInt32(Console.ReadLine());
 switch (userInput)
 {
     case 1:
-        PlayNummer();
+        PlayNummer(playlists);
         break;
     case 2:
         ShowPlayList(playlists);
@@ -48,9 +48,83 @@ switch (userInput)
         break;
 }
 
-static void PlayNummer()
+static void PlayNummer(List<PlayList> playlists)
 {
-    //
+    Console.Clear();
+    Console.WriteLine("<================================================>");
+
+    //List<PlayList> playlists
+
+    foreach (PlayList song in playlists)
+    {
+        Console.WriteLine("PlayList: {0}. {1}", song.Id, song.Name);
+
+        foreach (Nummer x in song.Nummers)
+        {
+            Console.WriteLine(x.Title);
+        }
+    }
+
+    Console.WriteLine("<================================================>");
+    Console.WriteLine("Song's action's:\n\r" +
+        "1. Shuffle Song's\n\r" +
+        "2. Select Song's\n\r" +
+        "3. Add Song's\n\r" +
+        "4. Remove Song's\n\r" +
+        "5. Exit");
+
+    Console.WriteLine("Voer een [cijfer] in: ");
+    int userInput = Convert.ToInt32(Console.ReadLine());
+
+    switch (userInput)
+    {
+        case 1:
+            Shuffle(playlists);
+            break;
+        case 2:
+            SelectSong();
+            break;
+        case 3:
+            AddSong();
+            break;
+        case 4:
+            RemoveSong();
+            break;
+        case 5:
+            break;
+    }
+
+    static void Shuffle(List<PlayList> playlists)
+    {
+        Random rnd = new Random();
+
+        foreach (PlayList song in playlists)
+        {
+            //Console.WriteLine("PlayList: {0}. {1}", song.Id, song.Name);
+
+            foreach (Nummer x in song.Nummers)
+            {
+                int index = rnd.Next(song.Nummers.Count);
+                Nummer randomNummer = song.Nummers[index];
+                Console.WriteLine(randomNummer.Title);
+            }
+        }
+    }
+
+    static void SelectSong()
+    {
+        //
+    }
+
+    static void AddSong()
+    {
+        //
+    }
+
+    static void RemoveSong()
+    {
+        //
+    }
 }
 
 static void ShowPlayList(List<PlayList> playlists)
