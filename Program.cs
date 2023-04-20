@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 
 Nummer song1 = new Nummer(1, "HDMI", "BONES", "Rotten", "2014", 300);
-Nummer song2 = new Nummer(2, "Bob marley", "Three Little Birds", "Exodus", "1977", 300);
+Nummer song2 = new Nummer(2, "Bob marley", "Three Little Birds", "Exodus", "1977", 100);
 Nummer song3 = new Nummer(3, "Ava Max", "Sweet but Psycho", "Heaven & Hell", "2020", 300);
 Nummer song4 = new Nummer(4, "Ericdoa", "Fantasize", "Fantasize", "2021", 300);
 Nummer song5 = new Nummer(5, "Pop Smoke", "Mood Swings", "Shoot for the Stars, Aim for the Moon", "2019", 300);
@@ -57,8 +57,7 @@ static void NowPlaying(Nummer song)
     {
         Console.Write("=");
         Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop);
-
-        // simulate song playback
+        Console.Write("=");
         Thread.Sleep(duration / progressBarWidth);
     }
     Console.WriteLine("]");
@@ -101,7 +100,7 @@ static void PlayNummer(List<PlayList> playlists)
             SelectSong(playlists);
             break;
         case 3:
-            AddSong();
+            AddSong(playlists);
             break;
         case 4:
             RemoveSong();
@@ -142,6 +141,8 @@ static void PlayNummer(List<PlayList> playlists)
                 Console.WriteLine("{0}. {1}", song.Id, song.Title);
             }
 
+            Console.WriteLine("<================================================>");
+
             Console.Write("Kies een nummer: ");
             int selectedSongId = int.Parse(Console.ReadLine());
 
@@ -159,9 +160,34 @@ static void PlayNummer(List<PlayList> playlists)
         }
     }
 
-    static void AddSong()
+    static void AddSong(List<PlayList> playlists)
     {
-        //
+        Console.WriteLine("Select a playlist to add the song to:");
+        foreach (var playlist in playlists)
+        {
+            Console.WriteLine("{0}. {1}", playlist.Id, playlist.Name);
+        }
+        Console.Write("Enter the number of the playlist: ");
+        int playlistNumber = int.Parse(Console.ReadLine());
+
+        PlayList playlistToAddSong = playlists.FirstOrDefault(p => p.Id == playlistNumber);
+        if (playlistToAddSong != null)
+        {
+            Console.Write("Enter the title of the song: ");
+            string title = Console.ReadLine();
+            Console.Write("Enter the artist of the song: ");
+            string artist = Console.ReadLine();
+            Console.Write("Enter the duration of the song (in seconds): ");
+            int duration = int.Parse(Console.ReadLine());
+
+            Nummer newSong = new Nummer(title, artist, duration);
+            playlistToAddSong.AddSongs(newSong);
+            Console.WriteLine("Song added to playlist {0}!", playlistToAddSong.Name);
+        }
+        else
+        {
+            Console.WriteLine("Invalid playlist number!");
+        }
     }
 
     static void RemoveSong()

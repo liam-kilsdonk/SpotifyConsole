@@ -36,5 +36,12 @@ namespace SpotifyConsole
             this.Duration = Duration;
 
         }
+
+        public Nummer(string? title, string? artist, int duration)
+        {
+            this.title = title;
+            this.artist = artist;
+            this.duration = duration;
+        }
     }
 }
