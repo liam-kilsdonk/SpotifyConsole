@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-Nummer song1 = new Nummer(1, "HDMI", "BONES", "Rotten", "2014", 30.40);
-Nummer song2 = new Nummer(2, "Bob marley", "Three Little Birds", "Exodus", "1977", 30.40);
-Nummer song3 = new Nummer(3, "Ava Max", "Sweet but Psycho", "Heaven & Hell", "2020", 30.40);
-Nummer song4 = new Nummer(4, "Ericdoa", "Fantasize", "Fantasize", "2021", 30.40);
-Nummer song5 = new Nummer(5, "Pop Smoke", "Mood Swings", "Shoot for the Stars, Aim for the Moon", "2019", 30.40);
+Nummer song1 = new Nummer(1, "HDMI", "BONES", "Rotten", "2014", 300);
+Nummer song2 = new Nummer(2, "Bob marley", "Three Little Birds", "Exodus", "1977", 300);
+Nummer song3 = new Nummer(3, "Ava Max", "Sweet but Psycho", "Heaven & Hell", "2020", 300);
+Nummer song4 = new Nummer(4, "Ericdoa", "Fantasize", "Fantasize", "2021", 300);
+Nummer song5 = new Nummer(5, "Pop Smoke", "Mood Swings", "Shoot for the Stars, Aim for the Moon", "2019", 300);
 
 PlayList Liam = new PlayList(1, "Weekend");
 PlayList Bob = new PlayList(2, "Carnaval");
@@ -48,6 +48,22 @@ switch (userInput)
         break;
 }
 
+static void NowPlaying(Nummer song)
+{
+    Console.Write("Now playing: {0} - {1} [", song.Artist, song.Title);
+    int progressBarWidth = Console.WindowWidth - 50; // width of the progress bar
+    int duration = song.Duration; // get the duration of the selected song
+    for (int i = 0; i <= duration; i++)
+    {
+        Console.Write("=");
+        Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop);
+
+        // simulate song playback
+        Thread.Sleep(duration / progressBarWidth);
+    }
+    Console.WriteLine("]");
+}
+
 static void PlayNummer(List<PlayList> playlists)
 {
     Console.Clear();
@@ -82,7 +98,7 @@ static void PlayNummer(List<PlayList> playlists)
             Shuffle(playlists);
             break;
         case 2:
-            SelectSong();
+            SelectSong(playlists);
             break;
         case 3:
             AddSong();
@@ -107,13 +123,40 @@ static void PlayNummer(List<PlayList> playlists)
                 int index = rnd.Next(song.Nummers.Count);
                 Nummer randomNummer = song.Nummers[index];
                 Console.WriteLine(randomNummer.Title);
+                NowPlaying(randomNummer);
+                break;
             }
         }
     }
 
-    static void SelectSong()
+    static void SelectSong(List<PlayList> playlists)
     {
-        //
+        Console.Clear();
+        Console.WriteLine("<================================================>");
+        foreach (PlayList playlist in playlists)
+        {
+            Console.WriteLine("Playlist: {0}. {1}", playlist.Id, playlist.Name);
+
+            foreach (Nummer song in playlist.Nummers)
+            {
+                Console.WriteLine("{0}. {1}", song.Id, song.Title);
+            }
+
+            Console.Write("Kies een nummer: ");
+            int selectedSongId = int.Parse(Console.ReadLine());
+
+            Nummer selectedSong = playlist.Nummers.FirstOrDefault(x => x.Id == selectedSongId);
+
+            if (selectedSong != null)
+            {
+                NowPlaying(selectedSong);
+                break;
+            }
+            else
+            {
+                Console.WriteLine("Ongeldig nummer. Probeer het opnieuw.");
+            }
+        }
     }
 
     static void AddSong()

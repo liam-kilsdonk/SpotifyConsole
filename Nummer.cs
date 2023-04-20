@@ -23,10 +23,10 @@ namespace SpotifyConsole
         private string date;
         public string Date { get { return date; } set { date = value; } }
 
-        private double duration;
-        public double Duration { get { return duration; } set { duration = value; } }
+        private int duration;
+        public int Duration { get { return duration; } set { duration = value; } }
 
-        public Nummer(int Id, string Title, string Artiest, string Album, string Date, double Duration) { 
+        public Nummer(int Id, string Title, string Artiest, string Album, string Date, int Duration) { 
 
             this.Id = Id;
             this.Title = Title;
