@@ -11,11 +11,21 @@ namespace SpotifyConsole
         private int id;
         public int Id { get { return id; } set { id = value; } }
 
-        public static void MyFriend()
-        {
-            List<FriendList> friend = new List<FriendList>();
+        private string name;
+        public string Name { get { return name; } set { name = value; } }
 
-            friend.Add(new FriendList { Id = 1 });
+        private List<FriendList> friends = new List<FriendList>();
+        public List<FriendList> Friends { get { return friends; } }
+
+        public FriendList(int Id, string Name)
+        {
+            this.Id = Id;
+            this.Name = Name;
+        }
+
+        public void AddFriends(params FriendList[] friend)
+        {
+            friends.AddRange(friend);
         }
     }
 }

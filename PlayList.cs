@@ -23,7 +23,8 @@ namespace SpotifyConsole
             this.Name = Name;
         }
 
-        //public void AddSongs(Nummer piet)
+        //public void AddSongs(Nummer piet) { 
+//
         //{
         //this.Nummers = new List<Nummer>();
         //this.Nummers.Add(piet);
@@ -32,6 +33,14 @@ namespace SpotifyConsole
         public void AddSongs(params Nummer[] songs)
         {
             nummers.AddRange(songs);
+        }
+
+        public void RemoveSongs(params Nummer[] songs)
+        {
+            foreach (var song in songs)
+            {
+                nummers.Remove(song);
+            }
         }
     }
 }

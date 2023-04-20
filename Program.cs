@@ -18,6 +18,16 @@ List<PlayList> playlists = new List<PlayList>();
 playlists.Add(Liam);
 playlists.Add(Bob);
 
+List<FriendList> friend = new List<FriendList>();
+
+FriendList friend1 = new FriendList(1, "Daan");
+FriendList friend2 = new FriendList(2, "Amber");
+FriendList friend3 = new FriendList(3, "Tijn");
+
+friend.Add(friend1);
+friend.Add(friend2);
+friend.Add(friend3);
+
 Console.WriteLine("<================================================>");
 Console.WriteLine("Welkom bij Liam's Spotify Console aplicatie");
 Console.WriteLine("1. Play Nummer\n\r" +
@@ -39,7 +49,7 @@ switch (userInput)
         ShowPlayList(playlists);
         break;
     case 3:
-        ShowFriendList();
+        ShowFriendList(friend);
         break;
     case 4:
         ShowAlbumList();
@@ -103,7 +113,7 @@ static void PlayNummer(List<PlayList> playlists)
             AddSong(playlists);
             break;
         case 4:
-            RemoveSong();
+            RemoveSong(playlists);
             break;
         case 5:
             break;
@@ -190,9 +200,38 @@ static void PlayNummer(List<PlayList> playlists)
         }
     }
 
-    static void RemoveSong()
+    static void RemoveSong(List<PlayList> playlists)
     {
-        //
+        Console.WriteLine("Select a playlist to remove the song from:");
+        foreach (var playlist in playlists)
+        {
+            Console.WriteLine("{0}. {1}", playlist.Id, playlist.Name);
+        }
+        Console.Write("Enter the number of the playlist: ");
+        int playlistNumber = int.Parse(Console.ReadLine());
+
+        if (playlists.Any(p => p.Id == playlistNumber))
+        {
+            Console.Write("Enter the title of the song to remove: ");
+            string title = Console.ReadLine();
+
+            var playlistToRemoveFrom = playlists.First(p => p.Id == playlistNumber);
+            var songToRemove = playlistToRemoveFrom.Nummers.FirstOrDefault(s => s.Title == title);
+
+            if (songToRemove != null)
+            {
+                playlistToRemoveFrom.Nummers.Remove(songToRemove);
+                Console.WriteLine("Song '{0}' removed from playlist '{1}'", title, playlistToRemoveFrom.Name);
+            }
+            else
+            {
+                Console.WriteLine("Song '{0}' not found in playlist '{1}'", title, playlistToRemoveFrom.Name);
+            }
+        }
+        else
+        {
+            Console.WriteLine("Invalid playlist number!");
+        }
     }
 }
 
@@ -307,9 +346,27 @@ static void ShowPlayList(List<PlayList> playlists)
     }
 }
 
-static void ShowFriendList()
+static void ShowFriendList(List<FriendList> friendLists)
 {
-    //
+    Console.Clear();
+    Console.WriteLine("<================================================>");
+    Console.WriteLine("FriendList:");
+
+    Console.WriteLine("List of Friends:");
+    foreach (var friendList in friendLists)
+    {
+        Console.WriteLine("- {0}", friendList.Name);
+    }
+
+    static void RemoveFriend()
+    {
+        //
+    }
+
+    static void AddFriend()
+    {
+        //
+    }
 }
 
 static void ShowAlbumList()

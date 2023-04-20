@@ -37,6 +37,8 @@ namespace SpotifyConsole
 
         }
 
+        /* dit moet anders want het is niet de hele liedjes zoals hier boven */
+
         public Nummer(string? title, string? artist, int duration)
         {
             this.title = title;
