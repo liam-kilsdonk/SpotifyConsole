@@ -14,15 +14,42 @@ namespace SpotifyConsole
         private string name;
         public string Name { get { return name; } set { name = value; } }
 
-        public static void MyUsers() 
-        { 
-            List<Users> users = new List<Users>(); 
+        private List<Nummer> playlist;
+        public List<Nummer> Playlist { get { return playlist; } set { playlist = value; } }
 
-            users.Add(new Users { Name = "Liam Kilsdonk", Id = 1 });
-            users.Add(new Users { Name = "Meneer Held", Id = 2 });
-            users.Add(new Users { Name = "Luke Peters", Id = 3 });
-            users.Add(new Users { Name = "Amber Opsteen", Id = 4 });
-            users.Add(new Users { Name = "Daan Parker", Id = 5 }); 
+        public Users(int id, string name)
+        {
+            this.id = id;
+            this.name = name;
+            this.playlist = new List<Nummer>();
+        }
+
+        public void AddSongToPlaylist(Nummer song)
+        {
+            playlist.Add(song);
+            Console.WriteLine("Added song '{0} - {1}' to {2}'s playlist", song.Artist, song.Title, name);
+        }
+
+        public void DisplayPlaylist()
+        {
+            Console.WriteLine("{0}'s playlist:", name);
+            foreach (Nummer song in playlist)
+            {
+                Console.WriteLine("- {0} - {1}", song.Artist, song.Title);
+            }
+        }
+
+        public List<Nummer> ComparePlaylists(List<Nummer> myPlaylist)
+        {
+            List<Nummer> commonSongs = new List<Nummer>();
+            foreach (Nummer song in myPlaylist)
+            {
+                if (playlist.Contains(song))
+                {
+                    commonSongs.Add(song);
+                }
+            }
+            return commonSongs;
         }
     }
 }
