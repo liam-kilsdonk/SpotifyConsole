@@ -36,34 +36,48 @@ Album album2 = new Album(2, "Only you", "The Platters");
 albums.Add(album1);
 albums.Add(album2);
 
-Console.WriteLine("<================================================>");
-Console.WriteLine("Welkom bij Liam's Spotify Console aplicatie");
-Console.WriteLine("1. Play Nummer\n\r" +
-    "2. Speellijst zien\n\r" +
-    "3. Vriendlijst zien\n\r" +
-    "4. Album's zien\n\r" +
-    "0. exit");
-Console.WriteLine("<================================================>");
+bool running = true;
 
-Console.WriteLine("Voer een [cijfer] in: ");
-int userInput = Convert.ToInt32(Console.ReadLine());
-
-switch (userInput)
+while (running)
 {
-    case 1:
-        PlayNummer(playlists);
-        break;
-    case 2:
-        ShowPlayList(playlists);
-        break;
-    case 3:
-        ShowFriendList(friend);
-        break;
-    case 4:
-        ShowAlbumList(albums);
-        break;
-    case 0:
-        break;
+    //Console.Clear();
+    Console.WriteLine("<================================================>");
+    Console.WriteLine("Welkom bij Liam's Spotify Console aplicatie");
+    Console.WriteLine("1. Play Nummer\n\r" +
+        "2. Speellijst zien\n\r" +
+        "3. Vriendlijst zien\n\r" +
+        "4. Album's zien\n\r" +
+        "0. exit");
+    Console.WriteLine("<================================================>");
+
+    Console.WriteLine("Voer een [cijfer] in: ");
+    int userInput = Convert.ToInt32(Console.ReadLine());
+
+    switch (userInput)
+    {
+        case 1:
+            Console.Clear();
+            PlayNummer(playlists);
+            break;
+        case 2:
+            Console.Clear();
+            ShowPlayList(playlists);
+            break;
+        case 3:
+            Console.Clear();
+            ShowFriendList(friend);
+            break;
+        case 4:
+            Console.Clear();
+            ShowAlbumList(albums);
+            break;
+        case 0:
+            running = false;
+            break;
+        default:
+            Console.WriteLine("Ongeldige invoer. Voer een geldige optie in.");
+            break;
+    }
 }
 
 static void NowPlaying(Nummer song)
@@ -112,15 +126,19 @@ static void PlayNummer(List<PlayList> playlists)
     switch (userInput)
     {
         case 1:
+            Console.Clear();
             Shuffle(playlists);
             break;
         case 2:
+            Console.Clear();
             SelectSong(playlists);
             break;
         case 3:
+            Console.Clear();
             AddSong(playlists);
             break;
         case 4:
+            Console.Clear();
             RemoveSong(playlists);
             break;
         case 5:
@@ -268,12 +286,15 @@ static void ShowPlayList(List<PlayList> playlists)
     switch (userInput)
     {
         case 1:
+            Console.Clear();
             AddPlayList(playlists);
             break;
         case 2:
+            Console.Clear();
             RemovePlayList(playlists);
             break;
         case 3:
+            Console.Clear();
             SelectPlaylist(playlists);
             break;
         case 4:
@@ -378,9 +399,11 @@ static void ShowFriendList(List<FriendList> friendLists)
     switch (userInput)
     {
         case 1:
+            Console.Clear();
             AddFriend(friendLists);
             break;
         case 2:
+            Console.Clear();
             RemoveFriend(friendLists);
             break;
         case 3:
@@ -445,9 +468,11 @@ static void ShowAlbumList(List<Album> albums)
     switch (userInput)
     {
         case 1:
+            Console.Clear();
             AddAlbum(albums);
             break;
         case 2:
+            Console.Clear();
             RemoveAlbum(albums);
             break;
         case 3:
