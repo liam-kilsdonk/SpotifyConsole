@@ -28,6 +28,14 @@ friend.Add(friend1);
 friend.Add(friend2);
 friend.Add(friend3);
 
+List<Album> albums = new List<Album>();
+
+Album album1 = new Album(1, "Hey ya", "Outkast");
+Album album2 = new Album(2, "Only you", "The Platters");
+
+albums.Add(album1);
+albums.Add(album2);
+
 Console.WriteLine("<================================================>");
 Console.WriteLine("Welkom bij Liam's Spotify Console aplicatie");
 Console.WriteLine("1. Play Nummer\n\r" +
@@ -52,7 +60,7 @@ switch (userInput)
         ShowFriendList(friend);
         break;
     case 4:
-        ShowAlbumList();
+        ShowAlbumList(albums);
         break;
     case 0:
         break;
@@ -358,18 +366,122 @@ static void ShowFriendList(List<FriendList> friendLists)
         Console.WriteLine("- {0}", friendList.Name);
     }
 
-    static void RemoveFriend()
+    Console.WriteLine("<================================================>");
+    Console.WriteLine("FriendList action's:\n\r" +
+        "1. Add FriendList\n\r" +
+        "2. Remove FriendList\n\r" +
+        "3. Exit");
+
+    Console.WriteLine("Voer een [cijfer] in: ");
+    int userInput = Convert.ToInt32(Console.ReadLine());
+
+    switch (userInput)
     {
-        //
+        case 1:
+            AddFriend(friendLists);
+            break;
+        case 2:
+            RemoveFriend(friendLists);
+            break;
+        case 3:
+            break;
     }
 
-    static void AddFriend()
+    static void RemoveFriend(List<FriendList> friendLists)
+    {
+        Console.Write("Enter the name of the friend to remove: ");
+        string friendName = Console.ReadLine();
+
+        var friendToRemove = friendLists.FirstOrDefault(f => f.Name == friendName);
+
+        if (friendToRemove != null)
+        {
+            friendLists.Remove(friendToRemove);
+            Console.WriteLine("Friend '{0}' removed from friend list.", friendName);
+        }
+        else
+        {
+            Console.WriteLine("Friend '{0}' not found in friend list.", friendName);
+        }
+    }
+
+    static void AddFriend(List<FriendList> friendLists)
+    {
+        Console.Write("Enter the name of the friend to add: ");
+        string friendName = Console.ReadLine();
+
+        var friendToAdd = new FriendList(friendLists.Count + 1, friendName);
+
+        friendLists.Add(friendToAdd);
+        Console.WriteLine("Friend '{0}' added to friend list.", friendName);
+    }
+
+    static void ComparePlayList()
     {
         //
     }
 }
 
-static void ShowAlbumList()
+static void ShowAlbumList(List<Album> albums)
 {
-    //
+    Console.Clear();
+    Console.WriteLine("<================================================>");
+    Console.WriteLine("Album List:");
+
+    foreach (var album in albums)
+    {
+        Console.WriteLine("- {0} by {1}", album.Title, album.Artist);
+    }
+
+    Console.WriteLine("<================================================>");
+    Console.WriteLine("AlbumList action's:\n\r" +
+        "1. Add AlbumList\n\r" +
+        "2. Remove AlbumList\n\r" +
+        "3. Exit");
+
+    Console.WriteLine("Voer een [cijfer] in: ");
+    int userInput = Convert.ToInt32(Console.ReadLine());
+
+    switch (userInput)
+    {
+        case 1:
+            AddAlbum(albums);
+            break;
+        case 2:
+            RemoveAlbum(albums);
+            break;
+        case 3:
+            break;
+    }
+
+    static void AddAlbum(List<Album> albums)
+    {
+        Console.WriteLine("Enter the title of the album:");
+        string title = Console.ReadLine();
+        Console.WriteLine("Enter the name of the artist:");
+        string artist = Console.ReadLine();
+
+        Album newAlbum = new Album(albums.Count + 1, title, artist);
+        albums.Add(newAlbum);
+
+        Console.WriteLine("Album '{0}' by '{1}' added to list", title, artist);
+    }
+
+    static void RemoveAlbum(List<Album> albums)
+    {
+        Console.WriteLine("Enter the title of the album to remove:");
+        string title = Console.ReadLine();
+
+        var albumToRemove = albums.FirstOrDefault(a => a.Title == title);
+
+        if (albumToRemove != null)
+        {
+            albums.Remove(albumToRemove);
+            Console.WriteLine("Album '{0}' removed from list", title);
+        }
+        else
+        {
+            Console.WriteLine("Album '{0}' not found in list", title);
+        }
+    }
 }

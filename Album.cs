@@ -17,18 +17,20 @@ namespace SpotifyConsole
         private string artist;
         public string Artist { get { return artist; } set { artist = value; } }
 
-        public List<Nummer> Nummers { get; set; }
 
-        public Album()
+        private List<Album> albums = new List<Album>();
+        public List<Album> Albums  { get { return albums; } }
+
+        public Album(int Id, string Title, string Artiest)
         {
-            Nummers= new List<Nummer>();
+            this.Id = Id;
+            this.Title = Title;
+            this.Artist = Artiest;
         }
 
-        public static void MyAlbum()
+        public void AddAlbums(params Album[] album)
         {
-            List<Album> albums = new List<Album>();
-
-            albums.Add(new Album { Id = 1, Title = "Sunshine", Artist = "Liam" });
+            albums.AddRange(album);
         }
     }
 }
