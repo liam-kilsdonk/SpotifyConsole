@@ -85,11 +85,24 @@ static void NowPlaying(Nummer song)
     Console.Write("Now playing: {0} - {1} [", song.Artist, song.Title);
     int progressBarWidth = Console.WindowWidth - 50; // width of the progress bar
     int duration = song.Duration; // get the duration of the selected song
+    Console.WriteLine("Druk `P` in om te pauzeren en verder te gaan.");
     for (int i = 0; i <= duration; i++)
     {
         Console.Write("=");
         Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop);
         Console.Write("=");
+
+        // check for pause input
+        while (Console.KeyAvailable)
+        {
+            ConsoleKeyInfo key = Console.ReadKey(true);
+            if (key.Key == ConsoleKey.P)
+            {
+                Console.WriteLine("\nPaused. Press any key to continue.");
+                Console.ReadKey();
+            }
+        }
+
         Thread.Sleep(duration / progressBarWidth);
     }
     Console.WriteLine("]");
